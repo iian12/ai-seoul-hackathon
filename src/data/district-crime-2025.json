@@ -1,0 +1,190 @@
+{
+  "year": 2025,
+  "retrievedAt": "2026-11-21T04:59:55.877330+00:00",
+  "populationDate": "2025-12-31",
+  "definition": "전체 범죄 (교통범죄 등 포함), 주민등록인구(내국인) 10만 명당 발생 건수",
+  "crimeSource": "https://www.data.go.kr/data/3074462/fileData.do",
+  "populationSource": "https://data.seoul.go.kr/together/statbook/statbookList.do",
+  "populationSheet": "1. 등록인구총괄 · C8:C36 / I8:I36",
+  "hashes": {
+    "crime.csv": "a82e8806bd662594f9172a3c790d33b2fa55de1045a8fc703fc697de0c85789b",
+    "population-2025.xlsx": "d392216a2a72cd16382959856a367760cea8f9580d6859aeb8851fd27e3b82c6"
+  },
+  "districts": [
+    {
+      "district": "종로구",
+      "year": 2025,
+      "cases": 10181,
+      "population": 137048,
+      "per100k": 7428.7840756523265
+    },
+    {
+      "district": "중구",
+      "year": 2025,
+      "cases": 10142,
+      "population": 117805,
+      "per100k": 8609.142226560842
+    },
+    {
+      "district": "용산구",
+      "year": 2025,
+      "cases": 10276,
+      "population": 201894,
+      "per100k": 5089.799597808751
+    },
+    {
+      "district": "성동구",
+      "year": 2025,
+      "cases": 8427,
+      "population": 274606,
+      "per100k": 3068.7603329861695
+    },
+    {
+      "district": "광진구",
+      "year": 2025,
+      "cases": 10401,
+      "population": 331167,
+      "per100k": 3140.7114839340875
+    },
+    {
+      "district": "동대문구",
+      "year": 2025,
+      "cases": 11196,
+      "population": 346241,
+      "per100k": 3233.5858549391896
+    },
+    {
+      "district": "중랑구",
+      "year": 2025,
+      "cases": 10403,
+      "population": 376916,
+      "per100k": 2760.03141283469
+    },
+    {
+      "district": "성북구",
+      "year": 2025,
+      "cases": 9045,
+      "population": 422559,
+      "per100k": 2140.529488189815
+    },
+    {
+      "district": "강북구",
+      "year": 2025,
+      "cases": 8786,
+      "population": 278928,
+      "per100k": 3149.9168244134685
+    },
+    {
+      "district": "도봉구",
+      "year": 2025,
+      "cases": 6939,
+      "population": 299899,
+      "per100k": 2313.7789722539924
+    },
+    {
+      "district": "노원구",
+      "year": 2025,
+      "cases": 9981,
+      "population": 483541,
+      "per100k": 2064.147611060903
+    },
+    {
+      "district": "은평구",
+      "year": 2025,
+      "cases": 10293,
+      "population": 455137,
+      "per100k": 2261.516861955851
+    },
+    {
+      "district": "서대문구",
+      "year": 2025,
+      "cases": 7322,
+      "population": 300147,
+      "per100k": 2439.4713257170656
+    },
+    {
+      "district": "마포구",
+      "year": 2025,
+      "cases": 14406,
+      "population": 357616,
+      "per100k": 4028.343250861259
+    },
+    {
+      "district": "양천구",
+      "year": 2025,
+      "cases": 10332,
+      "population": 425088,
+      "per100k": 2430.5555555555557
+    },
+    {
+      "district": "강서구",
+      "year": 2025,
+      "cases": 15664,
+      "population": 549711,
+      "per100k": 2849.497281298719
+    },
+    {
+      "district": "구로구",
+      "year": 2025,
+      "cases": 12342,
+      "population": 383829,
+      "per100k": 3215.494399849933
+    },
+    {
+      "district": "금천구",
+      "year": 2025,
+      "cases": 8730,
+      "population": 223290,
+      "per100k": 3909.713825070536
+    },
+    {
+      "district": "영등포구",
+      "year": 2025,
+      "cases": 15764,
+      "population": 371362,
+      "per100k": 4244.914665474658
+    },
+    {
+      "district": "동작구",
+      "year": 2025,
+      "cases": 8849,
+      "population": 371924,
+      "per100k": 2379.249524096321
+    },
+    {
+      "district": "관악구",
+      "year": 2025,
+      "cases": 16391,
+      "population": 477605,
+      "per100k": 3431.9154950220372
+    },
+    {
+      "district": "서초구",
+      "year": 2025,
+      "cases": 17536,
+      "population": 414428,
+      "per100k": 4231.3743279894215
+    },
+    {
+      "district": "강남구",
+      "year": 2025,
+      "cases": 33190,
+      "population": 556330,
+      "per100k": 5965.883558319702
+    },
+    {
+      "district": "송파구",
+      "year": 2025,
+      "cases": 19498,
+      "population": 643350,
+      "per100k": 3030.6986865625245
+    },
+    {
+      "district": "강동구",
+      "year": 2025,
+      "cases": 12097,
+      "population": 499127,
+      "per100k": 2423.631660879896
+    }
+  ]
+}

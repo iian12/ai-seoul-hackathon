@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env*
+!.env.example
+!.env.server.example
+/data/
+/public/data/
+/data-export/
+.supabase/
+.DS_Store
+__pycache__/
+*.py[cod]

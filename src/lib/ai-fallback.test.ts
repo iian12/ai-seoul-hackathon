@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { explainTop3 } from '../ui/ai.ts'
+import { AiError, explainTop3, transcribe } from '../ui/ai.ts'
 const body = { recs: [{ rank: 1, name: '사당동', district: '동작구', total: 70, scores: {}, matchCount: 10, sampleCount: 100, matchPct: 10 }] }
 
 test('comparison uses labelled factual fallback for HTTP and network failures but preserves cancellation', async () => {
@@ -17,4 +17,14 @@ test('comparison uses labelled factual fallback for HTTP and network failures bu
     }))
     await assert.rejects(explainTop3(body), { name: 'AbortError' })
   } finally { globalThis.fetch = previous }
+})
+
+test('transcription preserves the rate-limit status and text input guidance', async ({ mock }) => {
+  mock.method(globalThis, 'fetch', async () => Response.json(
+    { error: '잠시 후 다시 시도하거나 글로 입력해 주세요.' },
+    { status: 429 },
+  ))
+  await assert.rejects(transcribe(new Blob(['audio'])), error =>
+    error instanceof AiError && error.status === 429 && error.message.includes('글로 입력'),
+  )
 })

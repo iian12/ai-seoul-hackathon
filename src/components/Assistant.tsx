@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Accessibility, LoaderCircle, MicOff, Send, X } from 'lucide-react'
-import { transcribe } from '../ui/ai.ts'
+import { AiError, transcribe } from '../ui/ai.ts'
 import { beep, say, untilQuiet } from '../ui/speech.ts'
 
 // 시각장애인 안내: 한 번 누르면 화면 안내를 켜고 바로 듣는다(오른쪽 위 머리글).
@@ -100,8 +100,14 @@ export default function Assistant({ canRecord, onOn, onOff, handle }: Props) {
       try { text = (await transcribe(blob, signal)).trim() }
       catch (e) {
         if (signal.aborted) return
-        failures++
         const msg = e instanceof Error ? e.message : '말을 알아듣지 못했어요.'
+        if (e instanceof AiError && e.status === 429) {
+          setReply(msg)
+          setPhase('paused')
+          await say(msg)
+          return
+        }
+        failures++
         setReply(msg); await say(`${msg} 다시 말해 주세요.`)
         if (failures >= 2) { setPhase('paused'); return }
         continue

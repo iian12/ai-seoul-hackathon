@@ -10,7 +10,13 @@ import { levels } from './plain.ts'
 import { isValidRadiusKm, radiusRangeMessage } from '../lib/location.ts'
 import type { Place } from '../lib/location.ts'
 
-export class AiError extends Error {}
+export class AiError extends Error {
+  readonly status?: number
+  constructor(message: string, status?: number) {
+    super(message)
+    this.status = status
+  }
+}
 const FALLBACK = 'AI가 지금 응답하지 않아요. 잠시 후 다시 시도해 주세요.'
 
 async function call<T>(path: string, init: RequestInit): Promise<T> {
@@ -21,7 +27,7 @@ async function call<T>(path: string, init: RequestInit): Promise<T> {
     if (init.signal?.aborted || (error instanceof DOMException && error.name === 'AbortError')) throw error
     return null
   }) as (T & { error?: string }) | null
-  if (!res.ok || !data || data.error) throw new AiError(data?.error ?? FALLBACK)
+  if (!res.ok || !data || data.error) throw new AiError(data?.error ?? FALLBACK, res.status)
   return data
 }
 const json = (body: unknown, signal?: AbortSignal): RequestInit => ({ headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body), signal })

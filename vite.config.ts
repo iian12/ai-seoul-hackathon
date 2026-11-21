@@ -2,21 +2,23 @@ import { defineConfig, loadEnv } from 'vite'
 import type { Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import { existsSync, readFileSync } from 'node:fs'
+import { parseEnv } from 'node:util'
 
 /**
  * 개발 서버에서도 /api/* 서버리스 함수(Vercel과 같은 파일)를 그대로 실행한다.
  * 배포는 Vercel이 api/ 폴더를 함수로 올리므로 이 플러그인은 개발할 때만 쓴다.
- * AI 키(GROQ_API_KEY)는 .env.server.local에서 서버 쪽으로만 읽고 브라우저 번들에는 넣지 않는다.
+ * Groq 키는 .env.server.local에서 개발 서버의 API에만 전달한다.
  */
 function devApi(): Plugin {
   return {
     name: 'seoulsai-dev-api',
     apply: 'serve',
     configureServer(server) {
-      if (!process.env.GROQ_API_KEY && existsSync('.env.server.local')) {
-        for (const line of readFileSync('.env.server.local', 'utf8').split(/\r?\n/)) {
-          const m = line.match(/^\s*GROQ_API_KEY\s*=\s*(.+?)\s*$/)
-          if (m) process.env.GROQ_API_KEY = m[1].replace(/^['"]|['"]$/g, '')
+      if (existsSync('.env.server.local')) {
+        const localEnv = parseEnv(readFileSync('.env.server.local', 'utf8'))
+        for (const name of ['GROQ_API_KEY', 'GROQ_API_KEYS']) {
+          const value = localEnv[name]
+          if (value) process.env[name] ??= value
         }
       }
       server.middlewares.use(async (req, res, next) => {

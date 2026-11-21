@@ -7,7 +7,7 @@
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "node --experimental-strip-types --test src/lib/*.test.ts",
+    "test": "node --experimental-strip-types --test src/lib/*.test.ts scripts/groq.test.ts",
     "verify:apis": "node --env-file-if-exists=.env.server.local scripts/verify-apis.mjs",
     "check:secrets": "node scripts/check-secrets.mjs",
     "snapshot:demo": "node --experimental-strip-types scripts/export-demo.ts",

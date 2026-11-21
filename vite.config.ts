@@ -52,10 +52,14 @@ function devApi(): Plugin {
 export default defineConfig(({ mode }) => {
   const env = { ...loadEnv(mode, process.cwd(), 'VITE_'), ...Object.fromEntries(Object.entries(process.env).filter(([k]) => k.startsWith('VITE_'))) }
   const allowed = ['VITE_SUPABASE_URL', 'VITE_SUPABASE_PUBLISHABLE_KEY']
-  if (Object.keys(env).some(k => !allowed.includes(k) && env[k])) throw new Error('허용되지 않은 VITE_ 환경변수입니다. 비밀키는 .env.server.local의 서버 전용 변수에 저장하세요.')
+  const hasUnexpectedEnv = Object.entries(env).some(([name, value]) => {
+    const vercelMetadata = process.env.VERCEL === '1' && name.startsWith('VITE_VERCEL_')
+    return value && !allowed.includes(name) && !vercelMetadata
+  })
+  if (hasUnexpectedEnv) throw new Error('허용되지 않은 VITE_ 환경변수입니다. 비밀키는 .env.server.local의 서버 전용 변수에 저장하세요.')
   const key = env.VITE_SUPABASE_PUBLISHABLE_KEY || ''
   let serviceRole = false
   try { serviceRole = JSON.parse(Buffer.from(key.split('.')[1], 'base64url').toString()).role === 'service_role' } catch { /* publishable keys are not JWTs */ }
   if (key.startsWith('sb_secret_') || serviceRole) throw new Error('Supabase 비밀키는 프런트엔드에 사용할 수 없습니다. publishable 또는 anon 키를 사용하세요.')
-  return { plugins: [react(), devApi()], server: { port: 5173, strictPort: true }, build: { rollupOptions: { output: { manualChunks: { react: ['react', 'react-dom'], map: ['leaflet'], supabase: ['@supabase/supabase-js'] } } } } }
+  return { envPrefix: allowed, plugins: [react(), devApi()], server: { port: 5173, strictPort: true }, build: { rollupOptions: { output: { manualChunks: { react: ['react', 'react-dom'], map: ['leaflet'], supabase: ['@supabase/supabase-js'] } } } } }
 })
